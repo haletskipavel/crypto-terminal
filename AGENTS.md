@@ -27,3 +27,10 @@ Single-page Angular 21 app with no routing. The entire UI is one view: `Dashboar
 - `livePrice`/`change24h` on each `Coin` start as `null` and are populated by WebSocket updates; components fall back to the CoinGecko snapshot values until then.
 - `ng generate` schematics are configured with `skipTests: true` for all artifact types — do not add `--skip-tests` manually.
 - Styles use SCSS; component styles are scoped, global styles are in `src/styles.scss`.
+
+## Git conventions
+
+- Squash all commits into a single commit before pushing to `main`.
+- Never add the AI agent as a co-author in commit messages.
+- Branch naming: `AI-DEMO-{issueNumber}-{author}` — e.g. `AI-DEMO-1-phaletski`
+- PR title format: `[AI-DEMO] Short description` — e.g. `[AI-DEMO] Add light theme support`

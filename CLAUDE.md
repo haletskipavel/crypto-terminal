@@ -32,3 +32,5 @@ Single-page Angular 21 app with no routing. The entire UI is one view: `Dashboar
 
 - Squash all commits into a single commit before pushing to `main`.
 - Never add Claude as a co-author (`Co-Authored-By:` trailer) in commit messages.
+- Branch naming: `AI-DEMO-{issueNumber}-{author}` — e.g. `AI-DEMO-1-phaletski`
+- PR title format: `[AI-DEMO] Short description` — e.g. `[AI-DEMO] Add light theme support`
