@@ -1,0 +1,54 @@
+<div class="terminal">
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">◈</span>
+      <span class="title">CRYPTO TERMINAL</span>
+    </div>
+    <div class="header-right">
+      <span class="live-badge" [class.connected]="crypto.connected()">
+        <span class="pulse-dot"></span>
+        {{ crypto.connected() ? 'LIVE' : 'CONNECTING' }}
+      </span>
+    </div>
+  </header>
+
+  <main class="content">
+    @if (crypto.loading()) {
+      <div class="state-message">
+        <span class="blink">▶</span> Fetching market data...
+      </div>
+    } @else if (crypto.error()) {
+      <div class="state-message error">
+        ✕ {{ crypto.error() }}
+      </div>
+    } @else {
+      <table class="coin-table">
+        <thead>
+          <tr>
+            <th class="col-rank">#</th>
+            <th class="col-asset">Asset</th>
+            <th class="col-price">Price</th>
+            <th class="col-change">24h %</th>
+            <th class="col-cap">Market Cap</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (coin of crypto.coins(); track coin.id) {
+            <tr app-coin-row [coin]="coin"></tr>
+          }
+        </tbody>
+      </table>
+    }
+  </main>
+
+  <footer class="footer">
+    <span class="footer-left">
+      @if (crypto.lastUpdated()) {
+        Last tick &nbsp;{{ crypto.lastUpdated() | date: 'HH:mm:ss' }}
+      } @else {
+        &nbsp;
+      }
+    </span>
+    <span class="footer-right">CoinGecko &nbsp;·&nbsp; Binance WebSocket</span>
+  </footer>
+</div>

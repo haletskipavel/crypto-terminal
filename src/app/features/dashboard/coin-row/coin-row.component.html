@@ -1,0 +1,19 @@
+<td class="col-rank">{{ coin().market_cap_rank }}</td>
+
+<td class="col-asset">
+  <img [src]="coin().image" [alt]="coin().name" class="coin-img" />
+  <div class="coin-info">
+    <span class="coin-name">{{ coin().name }}</span>
+    <span class="coin-symbol">{{ coin().symbol.toUpperCase() }}</span>
+  </div>
+</td>
+
+<td class="col-price" [class.flash-up]="flash() === 'up'" [class.flash-down]="flash() === 'down'">
+  {{ formatPrice(displayPrice()) }}
+</td>
+
+<td class="col-change" [class.positive]="displayChange() >= 0" [class.negative]="displayChange() < 0">
+  {{ displayChange() >= 0 ? '+' : '' }}{{ displayChange().toFixed(2) }}%
+</td>
+
+<td class="col-cap">{{ formatMarketCap(coin().market_cap) }}</td>
