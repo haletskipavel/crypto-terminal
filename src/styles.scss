@@ -24,6 +24,21 @@
   --font: 'JetBrains Mono', 'Roboto Mono', 'Courier New', monospace;
 }
 
+[data-theme='light'] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-row-hover: #e8edf3;
+  --border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-dim: #94a3b8;
+  --green: #16a34a;
+  --green-bg: rgba(22, 163, 74, 0.1);
+  --red: #dc2626;
+  --red-bg: rgba(220, 38, 38, 0.1);
+  --accent: #4f46e5;
+}
+
 html,
 body {
   height: 100%;

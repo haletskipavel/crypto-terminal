@@ -5,6 +5,9 @@
       <span class="title">CRYPTO TERMINAL</span>
     </div>
     <div class="header-right">
+      <button class="theme-toggle" (click)="themeService.toggle()">
+        {{ themeService.theme() === 'dark' ? '☀ LIGHT' : '☾ DARK' }}
+      </button>
       <span class="live-badge" [class.connected]="crypto.connected()">
         <span class="pulse-dot"></span>
         {{ crypto.connected() ? 'LIVE' : 'CONNECTING' }}
