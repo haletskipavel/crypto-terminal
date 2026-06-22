@@ -57,7 +57,7 @@ export class CryptoService implements OnDestroy {
       next: (data) => {
         const coins = data
           .filter((c) => !SKIP_IDS.has(c.id))
-          .slice(0, 10)
+          .slice(0, 5)
           .map((c) => ({
             id: c.id,
             symbol: c.symbol.toLowerCase(),
