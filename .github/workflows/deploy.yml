@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -24,10 +24,28 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npm run build -- --base-href /crypto-terminal/
 
-      - uses: peaceiris/actions-gh-pages@v4
+      - name: Build (main)
+        if: github.ref_name == 'main'
+        run: npm run build -- --base-href /crypto-terminal/
+
+      - name: Build (preview)
+        if: github.ref_name != 'main'
+        run: npm run build -- --base-href /crypto-terminal/preview/${{ github.ref_name }}/
+
+      - name: Deploy to root
+        if: github.ref_name == 'main'
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/crypto-terminal/browser
+          keep_files: true
+
+      - name: Deploy to preview
+        if: github.ref_name != 'main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/crypto-terminal/browser
+          destination_dir: preview/${{ github.ref_name }}
           keep_files: true

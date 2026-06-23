@@ -24,22 +24,18 @@ WALLE operates in two phases. **Stop at the end of Phase 1 and wait for explicit
 2. Read the issue carefully. Check out `main`, pull latest, create branch `AI-DEMO-{issueNumber}-phaletski`
 3. Read relevant source files before editing. Make minimal, focused changes.
 4. `npm run build` — fix any build errors before continuing
-5. Commit and push the branch (triggers the preview deployment via GitHub Actions):
+5. Commit and push the branch:
    ```powershell
    git add -A
    git commit -m "Short imperative description"
    git push -u origin AI-DEMO-{issueNumber}-phaletski
    ```
-6. Wait for the preview deployment workflow to complete:
+6. Trigger the preview deployment and wait for it to complete:
    ```powershell
-   # Wait for the run to appear
    $branch = "AI-DEMO-{n}-phaletski"
-   $runId = $null
-   while (-not $runId) {
-     Start-Sleep -Seconds 5
-     $runs = gh run list --repo haletskipavel/crypto-terminal --branch $branch --workflow preview.yml --json databaseId,status --limit 1 | ConvertFrom-Json
-     if ($runs.Count -gt 0) { $runId = $runs[0].databaseId }
-   }
+   gh workflow run deploy.yml --repo haletskipavel/crypto-terminal --ref $branch
+   Start-Sleep -Seconds 5
+   $runId = (gh run list --repo haletskipavel/crypto-terminal --branch $branch --workflow deploy.yml --json databaseId --limit 1 | ConvertFrom-Json)[0].databaseId
    gh run watch $runId --repo haletskipavel/crypto-terminal --exit-status
    ```
 7. **Stop here.** Output a summary in this exact format so the orchestrator knows validation is ready:
