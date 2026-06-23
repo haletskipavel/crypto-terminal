@@ -1,16 +1,11 @@
-name: Deploy
+name: Preview Deploy
 
 on:
   push:
-    branches: [main]
-  workflow_dispatch:
+    branches: ['AI-DEMO-*']
 
 permissions:
   contents: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -24,10 +19,11 @@ jobs:
           cache: npm
 
       - run: npm ci
-      - run: npm run build -- --base-href /crypto-terminal/
+      - run: npm run build -- --base-href /crypto-terminal/preview/${{ github.ref_name }}/
 
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/crypto-terminal/browser
+          destination_dir: preview/${{ github.ref_name }}
           keep_files: true
