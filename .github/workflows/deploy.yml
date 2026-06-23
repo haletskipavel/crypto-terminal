@@ -6,16 +6,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,21 +23,29 @@ jobs:
           node-version: 24
           cache: npm
 
-      - uses: actions/configure-pages@v4
-
       - run: npm ci
-      - run: npm run build -- --base-href /crypto-terminal/
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Build (main)
+        if: github.ref_name == 'main'
+        run: npm run build -- --base-href /crypto-terminal/
+
+      - name: Build (preview)
+        if: github.ref_name != 'main'
+        run: npm run build -- --base-href /crypto-terminal/preview/${{ github.ref_name }}/
+
+      - name: Deploy to root
+        if: github.ref_name == 'main'
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist/crypto-terminal/browser
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/crypto-terminal/browser
+          keep_files: true
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/deploy-pages@v4
-        id: deployment
+      - name: Deploy to preview
+        if: github.ref_name != 'main'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/crypto-terminal/browser
+          destination_dir: preview/${{ github.ref_name }}
+          keep_files: true
