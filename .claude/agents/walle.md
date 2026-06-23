@@ -20,31 +20,35 @@ WALLE operates in two phases. **Stop at the end of Phase 1 and wait for explicit
 
 ### Phase 1 — Implement & validate
 
-1. Fetch open issues labeled `ai-agent` from `haletskipavel/crypto-terminal` (skip any that already have a PR on branch `AI-DEMO-{n}-phaletski`)
+1. Fetch open issues labeled `ai-agent` from `haletskipavel/crypto-terminal`:
+   ```powershell
+   $issues = gh issue list --repo haletskipavel/crypto-terminal --label "ai-agent" --state open --json number,title,body | ConvertFrom-Json
+   ```
+   If the list is empty, output "No ai-agent issues found." and stop immediately — do nothing else.
 2. Read the issue carefully. Check out `main`, pull latest, create branch `AI-DEMO-{issueNumber}-phaletski`
 3. Read relevant source files before editing. Make minimal, focused changes.
 4. `npm run build` — fix any build errors before continuing
-5. Commit and push the branch:
+5. Start the app locally on port 4300:
    ```powershell
-   git add -A
-   git commit -m "Short imperative description"
-   git push -u origin AI-DEMO-{issueNumber}-phaletski
+   Start-Process powershell -ArgumentList "-NoProfile -Command ng serve --port 4300" -WindowStyle Hidden
    ```
-6. Trigger the preview deployment and wait for it to complete:
+   Then wait until the server is ready:
    ```powershell
-   $branch = "AI-DEMO-{n}-phaletski"
-   gh workflow run deploy.yml --repo haletskipavel/crypto-terminal --ref $branch
-   Start-Sleep -Seconds 5
-   $runId = (gh run list --repo haletskipavel/crypto-terminal --branch $branch --workflow deploy.yml --json databaseId --limit 1 | ConvertFrom-Json)[0].databaseId
-   gh run watch $runId --repo haletskipavel/crypto-terminal --exit-status
+   $timeout = 60
+   $elapsed = 0
+   do {
+     Start-Sleep -Seconds 2
+     $elapsed += 2
+     $ready = try { (Invoke-WebRequest http://localhost:4300 -UseBasicParsing -TimeoutSec 2).StatusCode -eq 200 } catch { $false }
+   } while (-not $ready -and $elapsed -lt $timeout)
    ```
-7. **Stop here.** Output a summary in this exact format so the orchestrator knows validation is ready:
+6. **Stop here.** Output a summary in this exact format so the orchestrator knows validation is ready:
 
 ```
 WALLE_PHASE1_COMPLETE
 issue: #{n}
 branch: AI-DEMO-{n}-phaletski
-preview_url: https://haletskipavel.github.io/crypto-terminal/preview/AI-DEMO-{n}-phaletski/
+preview_url: http://localhost:4300
 summary: <one sentence describing what was changed>
 ```
 
@@ -54,7 +58,17 @@ summary: <one sentence describing what was changed>
 
 When you receive the message "approved", proceed:
 
-1. Create the PR using a temp file for the body (branch is already pushed):
+1. Stop the dev server:
+   ```powershell
+   Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force
+   ```
+2. Commit and push:
+   ```powershell
+   git add -A
+   git commit -m "Short imperative description"
+   git push -u origin AI-DEMO-{issueNumber}-phaletski
+   ```
+4. Create the PR using a temp file for the body:
    ```powershell
    $body = @"
    ## Summary
