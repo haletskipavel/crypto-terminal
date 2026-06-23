@@ -51,9 +51,9 @@ export class CoinRowComponent {
   }
 
   formatMarketCap(cap: number): string {
-    if (cap >= 1e12) return `$${(cap / 1e12).toFixed(2)}T`;
-    if (cap >= 1e9) return `$${(cap / 1e9).toFixed(1)}B`;
-    if (cap >= 1e6) return `$${(cap / 1e6).toFixed(1)}M`;
+    if (cap >= 1e12) return `$${parseFloat((cap / 1e12).toFixed(1))}T`;
+    if (cap >= 1e9) return `$${parseFloat((cap / 1e9).toFixed(1))}B`;
+    if (cap >= 1e6) return `$${parseFloat((cap / 1e6).toFixed(1))}M`;
     return `$${cap.toLocaleString()}`;
   }
 }
