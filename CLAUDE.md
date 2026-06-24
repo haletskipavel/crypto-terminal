@@ -34,3 +34,13 @@ Single-page Angular 21 app with no routing. The entire UI is one view: `Dashboar
 - Never add Claude as a co-author (`Co-Authored-By:` trailer) in commit messages.
 - Branch naming: `AI-DEMO-{issueNumber}-{author}` — e.g. `AI-DEMO-1-phaletski`
 - PR title format: `[AI-DEMO] Short description` — e.g. `[AI-DEMO] Add light theme support`
+
+## WALLE autonomous agent
+
+WALLE is an autonomous coding agent triggered by saying "run WALLE". It polls GitHub issues labeled `ai-agent`, implements the fix, validates the UI with Playwright, and opens a PR.
+
+- Workflow: `.claude/workflows/walle.js` — orchestrates 4 phases: Fetch → Implement → Validate → Ship
+- Agent: `.claude/agents/walle.md` — handles branch creation, coding, and build only
+- Conventions: `.claude/skills/gh-conventions.md` — branch naming and PR format
+
+To create work for WALLE: open a GitHub issue on `haletskipavel/crypto-terminal` and add the `ai-agent` label.
