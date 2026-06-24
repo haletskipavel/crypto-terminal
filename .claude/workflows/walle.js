@@ -90,9 +90,10 @@ Return the branch name (AI-DEMO-${issue.number}-phaletski) and a one-sentence su
    gh pr create --repo haletskipavel/crypto-terminal --title "[AI-DEMO] ${issue.title}" --body "$(cat <<'EOF'
 ## Summary
 
+- ${impl.summary}
+
 Closes #${issue.number}
 
-- ${impl.summary}
 EOF
 )"
 Return the PR URL.`,
