@@ -84,15 +84,23 @@ td {
 
 .col-change {
   font-weight: 500;
+}
+
+.change-pill {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
 
   &.positive {
     color: var(--green);
-    background: transparent;
+    background: var(--green-bg);
   }
 
   &.negative {
     color: var(--red);
-    background: transparent;
+    background: var(--red-bg);
   }
 }
 
