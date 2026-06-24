@@ -1,0 +1,14 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - generic [ref=e7]: ◈
+      - generic [ref=e8]: CRYPTO TERMINAL
+    - generic [ref=e9]:
+      - button "☀ LIGHT" [ref=e10] [cursor=pointer]
+      - generic [ref=e11]: CONNECTING
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]: ▶
+      - text: Fetching market data...
+  - contentinfo [ref=e16]:
+    - generic [ref=e18]: CoinGecko · Binance WebSocket
