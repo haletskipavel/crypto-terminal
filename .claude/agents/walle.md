@@ -22,11 +22,11 @@ WALLE operates in two phases. The orchestrator runs Playwright validation betwee
 ### Phase 1 — Implement & validate
 
 1. `Write-Host "→ [1/6] Fetching issues..."` — fetch open `ai-agent` issues. If none, stop. Skip issues that already have a PR on `AI-DEMO-{n}-phaletski`.
-2. `Write-Host "→ [2/6] Creating branch..."` — create branch per `gh-conventions`
-3. `Write-Host "→ [3/6] Reading source files..."` — read relevant files before editing
-4. `Write-Host "→ [4/6] Implementing fix..."` — make minimal, focused changes
-5. `Write-Host "→ [5/6] Building..."` — `npm run build`, fix any errors before continuing
-6. `Write-Host "→ [6/6] Starting app for validation..."` — start the app on port 4300:
+2. `Write-Host "→ [2/6] Creating branch AI-DEMO-{issueNumber}-phaletski for issue #{issueNumber}: {issueTitle}"` — create branch per `gh-conventions`
+3. `Write-Host "→ [3/6] Reading source files for issue #{issueNumber}..."` — read relevant files before editing
+4. `Write-Host "→ [4/6] Implementing fix for issue #{issueNumber}: {issueTitle}..."` — make minimal, focused changes
+5. `Write-Host "→ [5/6] Building branch AI-DEMO-{issueNumber}-phaletski..."` — `npm run build`, fix any errors before continuing
+6. `Write-Host "→ [6/6] Starting app on http://localhost:4300 for issue #{issueNumber}..."` — start the app on port 4300:
    ```powershell
    Start-Process powershell -ArgumentList "-NoProfile -Command ng serve --port 4300" -WindowStyle Hidden
    $timeout = 60; $elapsed = 0
