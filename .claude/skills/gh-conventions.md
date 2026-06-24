@@ -47,10 +47,6 @@ gh pr create \
 Closes #{issueNumber}
 
 {bullet points describing what was changed}
-
-## Test plan
-
-- [ ] {manual verification step}
 EOF
 )"
 ```
