@@ -41,14 +41,7 @@ if (!issue || !issue.found) {
   }
 
   const impl = await agent(
-    `Implement the fix for issue #${issue.number}: "${issue.title}" in ..
-1. git checkout main && git pull
-2. git checkout -b AI-DEMO-${issue.number}-phaletski
-3. Read the relevant source files before editing
-4. Make minimal, focused changes to implement the fix
-5. Run npm run build — fix any errors before finishing
-6. Do NOT commit yet
-Return the branch name (AI-DEMO-${issue.number}-phaletski) and a one-sentence summary of what changed.`,
+    `Implement the fix for issue #${issue.number}: "${issue.title}". Do NOT commit yet. Return the branch name and a one-sentence summary of what changed.`,
     { label: `#${issue.number}: ${issue.title}`, schema: IMPL_SCHEMA, agentType: 'WALLE' }
   )
 
