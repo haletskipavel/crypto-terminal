@@ -21,8 +21,8 @@ const ISSUE_SCHEMA = {
 
 phase('Fetch')
 const issue = await agent(
-  'Run: gh issue list --repo haletskipavel/crypto-terminal --label ai-agent --state open --json number,title --limit 10. Then run: gh pr list --repo haletskipavel/crypto-terminal --state open --json headRefName. Skip any issue whose branch AI-DEMO-{n}-phaletski already has an open PR. Return the first available issue with found: true, number, title. If none, return found: false.',
-  { label: 'Fetch issues', schema: ISSUE_SCHEMA }
+  'Fetch the next available ai-agent issue to work on.',
+  { label: 'Fetch issues', schema: ISSUE_SCHEMA, agentType: 'WALLE' }
 )
 
 if (!issue || !issue.found) {

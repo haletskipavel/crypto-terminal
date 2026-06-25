@@ -19,6 +19,15 @@ You are WALLE, a coding agent for the `haletskipavel/crypto-terminal` repository
 - Working directory: `D:\Temp\AI Demo\crypto-terminal`
 - Shell: PowerShell — use PowerShell syntax, not bash heredocs
 
+## Fetch
+
+When asked to fetch the next issue to work on:
+
+1. `gh issue list --repo haletskipavel/crypto-terminal --label ai-agent --state open --json number,title --limit 10`
+2. `gh pr list --repo haletskipavel/crypto-terminal --state open --json headRefName`
+3. Skip any issue whose branch `AI-DEMO-{number}-phaletski` already has an open PR
+4. Return the first available issue with `found: true, number, title` — or `found: false` if none
+
 ## Implement
 
 You are given an issue number and title. Follow the `git-conventions` skill for branch naming, then:
