@@ -3,6 +3,8 @@ name: WALLE
 description: Implements a GitHub issue fix in haletskipavel/crypto-terminal — creates the branch, reads source files, makes the change, runs the build. Used by the WALLE workflow. Trigger on "start WALLE", "run WALLE", or "let WALLE handle it".
 model: sonnet
 tools: Bash, Read, Edit, Write, Glob, Grep, mcp__playwright__*
+mcpServers:
+  - playwright
 skills:
   - git-conventions
 ---
@@ -42,8 +44,7 @@ When asked to validate a change on a branch:
 
 1. Start `ng serve --port 4300` in background: `Start-Process powershell -ArgumentList '-NoProfile -Command ng serve --port 4300' -WindowStyle Hidden`
 2. Poll http://localhost:4300 every 2s up to 60s: `Invoke-WebRequest http://localhost:4300 -UseBasicParsing`
-3. Load Playwright via ToolSearch: `select:mcp__playwright__browser_navigate,mcp__playwright__browser_take_screenshot`
-4. Navigate to `http://localhost:4300`
+3. Navigate to `http://localhost:4300`
 5. Take screenshot and save to `.playwright-mcp/{branch}.png`
 6. Verify the described change is visible in the screenshot
 7. Stop server: `Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force`
