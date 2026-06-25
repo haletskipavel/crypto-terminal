@@ -24,7 +24,6 @@ git checkout -b AI-DEMO-{issueNumber}-phaletski
 ## Commit conventions
 
 - Squash all work into a **single commit** before pushing
-- **Never** add a `Co-Authored-By:` trailer
 - Write a concise, imperative commit message describing the change
 
 ## PR title
