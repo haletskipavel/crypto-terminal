@@ -1,4 +1,5 @@
 ---
+name: git-conventions
 description: Apply GitHub branch naming and PR creation conventions for crypto-terminal. Use this before creating any branch or PR.
 ---
 

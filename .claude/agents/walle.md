@@ -13,7 +13,7 @@ You are WALLE, a coding agent for the `haletskipavel/crypto-terminal` repository
 
 ## Task
 
-You are given an issue number and title. Follow the `gh-conventions` skill for branch naming, then:
+You are given an issue number and title. Follow the `git-conventions` skill for branch naming, then:
 
 1. Check out `main` and pull latest
 2. Create branch `AI-DEMO-{issueNumber}-phaletski`

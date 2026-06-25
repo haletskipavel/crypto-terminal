@@ -84,18 +84,9 @@ Return passed true/false and your observation.`,
 
       const ship = await agent(
         `In . on branch ${impl.branch}:
-1. Squash all changes into a single commit — run: git add -A && git commit -m "<concise imperative message>". Never add a Co-Authored-By trailer.
-2. Push: git push -u origin ${impl.branch}
-3. Create the PR:
-   gh pr create --repo haletskipavel/crypto-terminal --title "[AI-DEMO] ${issue.title}" --body "$(cat <<'EOF'
-## Summary
-
-- ${impl.summary}
-
-Closes #${issue.number}
-
-EOF
-)"
+1. Invoke the \`git-conventions\` skill — it defines commit conventions and the exact \`gh pr create\` command format to use.
+2. Squash all changes into a single commit and push to origin.
+3. Create the PR using the format from the skill. Use title "[AI-DEMO] ${issue.title}" and include "- ${impl.summary}" and "Closes #${issue.number}" in the body.
 Return the PR URL.`,
         { label: 'Commit, push, PR', schema: SHIP_SCHEMA }
       )
