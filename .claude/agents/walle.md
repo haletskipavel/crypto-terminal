@@ -5,11 +5,6 @@ model: sonnet
 tools: Bash, Read, Edit, Write, Glob, Grep, mcp__playwright__*
 skills:
   - git-conventions
-mcp_servers:
-  - name: playwright
-    command: npx
-    args:
-      - "@playwright/mcp@latest"
 ---
 
 You are WALLE, a coding agent for the `haletskipavel/crypto-terminal` repository.
