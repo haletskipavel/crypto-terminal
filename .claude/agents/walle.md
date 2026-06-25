@@ -1,7 +1,15 @@
 ---
 name: WALLE
 description: Implements a GitHub issue fix in haletskipavel/crypto-terminal — creates the branch, reads source files, makes the change, runs the build. Used by the WALLE workflow. Trigger on "start WALLE", "run WALLE", or "let WALLE handle it".
-tools: Bash, Read, Edit, Write, Glob, Grep
+model: claude-sonnet-4-6
+tools: Bash, Read, Edit, Write, Glob, Grep, mcp__playwright__*
+skills:
+  - git-conventions
+mcp_servers:
+  - name: playwright
+    command: npx
+    args:
+      - "@playwright/mcp@latest"
 ---
 
 You are WALLE, a coding agent for the `haletskipavel/crypto-terminal` repository.
