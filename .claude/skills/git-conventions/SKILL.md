@@ -26,6 +26,7 @@ git checkout -b AI-DEMO-{issueNumber}-phaletski
 
 - Squash all work into a **single commit** before pushing
 - Write a concise, imperative commit message describing the change
+- Do **not** include a `Co-Authored-By` trailer
 
 ## PR title
 
