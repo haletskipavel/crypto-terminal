@@ -59,15 +59,8 @@ if (!issue || !issue.found) {
     }
 
     const validation = await agent(
-      `In .:
-1. Start ng serve on port 4300: run PowerShell command "Start-Process powershell -ArgumentList '-NoProfile -Command ng serve --port 4300' -WindowStyle Hidden", then poll http://localhost:4300 every 2s up to 60s with Invoke-WebRequest until it responds.
-2. Use ToolSearch with query "select:mcp__playwright__browser_navigate,mcp__playwright__browser_take_screenshot" to load the Playwright tool schemas.
-3. Call mcp__playwright__browser_navigate with url "http://localhost:4300".
-4. Call mcp__playwright__browser_take_screenshot and save to ".playwright-mcp/${impl.branch}.png" — check the loaded schema for the exact save path parameter name.
-5. Verify this change is visible in the screenshot: "${impl.summary}".
-6. Stop the server: run PowerShell "Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force".
-Return passed true/false and your observation.`,
-      { label: 'Playwright screenshot', schema: VALIDATE_SCHEMA }
+      `In . on branch ${impl.branch}: validate the change "${impl.summary}". Save screenshot to ".playwright-mcp/${impl.branch}.png".`,
+      { label: 'Playwright screenshot', schema: VALIDATE_SCHEMA, agentType: 'WALLE' }
     )
 
     if (!validation || !validation.passed) {
@@ -83,12 +76,8 @@ Return passed true/false and your observation.`,
       }
 
       const ship = await agent(
-        `In . on branch ${impl.branch}:
-1. Invoke the \`git-conventions\` skill — it defines commit conventions and the exact \`gh pr create\` command format to use.
-2. Squash all changes into a single commit and push to origin.
-3. Create the PR using the format from the skill. Use title "[AI-DEMO] ${issue.title}" and include "- ${impl.summary}" and "Closes #${issue.number}" in the body.
-Return the PR URL.`,
-        { label: 'Commit, push, PR', schema: SHIP_SCHEMA }
+        `In . on branch ${impl.branch}: ship issue #${issue.number} "${issue.title}". Include "- ${impl.summary}" and "Closes #${issue.number}" in the PR body.`,
+        { label: 'Commit, push, PR', schema: SHIP_SCHEMA, agentType: 'WALLE' }
       )
 
       if (ship) log(`PR created: ${ship.pr_url}`)
