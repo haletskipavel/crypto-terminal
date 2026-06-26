@@ -12,8 +12,10 @@
   {{ formatPrice(displayPrice()) }}
 </td>
 
-<td class="col-change" [class.positive]="displayChange() >= 0" [class.negative]="displayChange() < 0">
-  {{ displayChange() >= 0 ? '+' : '' }}{{ displayChange().toFixed(2) }}%
+<td class="col-change">
+  <span class="change-pill" [class.positive]="displayChange() >= 0" [class.negative]="displayChange() < 0">
+    {{ displayChange() >= 0 ? '+' : '' }}{{ displayChange().toFixed(2) }}%
+  </span>
 </td>
 
 <td class="col-cap">{{ formatMarketCap(coin().market_cap) }}</td>
